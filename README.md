@@ -10,7 +10,7 @@ Ejecutamos un contenedor basado en la imagen: ubuntu y accedemos a la terminal d
 docker run --name ejercici1_ct -it ubuntu /bin/bash
 ```
 
-![Imagen 1. Creación del contenedor ](capturas/Captura1.png)
+![Imagen 1. Creación del contenedor ](Capturas/Captura1.png)
 
 Al utilizar la opción it, automáticamente accedemos a la terminal del contenedor. Actualizamos e instalamos curl:
 
@@ -25,7 +25,7 @@ Comprueba que funciona:
 curl --version
 ```
 
-![Imagen 2. Comprobar que curl se ha instalado ](capturas/Captura2.png)
+![Imagen 2. Comprobar que curl se ha instalado ](Capturas/Captura2.png)
 
 Para salir del contenedor escribimos exit.
 
@@ -45,7 +45,7 @@ docker images
 ```
 Si consultamos las imágenes, veremos la nueva imagen creada a partir del contenedor con curl.
 
-![Imagen 3. CGuardar cambios en imagen ](capturas/Captura3.png)
+![Imagen 3. CGuardar cambios en imagen ](Capturas/Captura3.png)
 
 ---
 
@@ -68,7 +68,7 @@ docker build --tag ubuntu-curl-v2 .
 docker images
 ```
 
-![Imagen 4. Crear imagen desde Dockerfile ](capturas/Captura4.png)
+![Imagen 4. Crear imagen desde Dockerfile ](Capturas/Captura4.png)
 
 Comprobmos que `curl` está instalado. Para ello creamos un contenedor nuevo a partir de la imagen anterior:
 
@@ -76,7 +76,7 @@ Comprobmos que `curl` está instalado. Para ello creamos un contenedor nuevo a p
 docker run --name ejercicio1_ct2 -it ubuntu_curl_v2 /bin/bash
 ```
 
-![Imagen 5. Crear contenedor desde nueva imagen ](capturas/Captura5.png)
+![Imagen 5. Crear contenedor desde nueva imagen ](Capturas/Captura5.png)
 ---
 
 ## Pregunta
@@ -112,7 +112,7 @@ su - postgres
 psql
 ```
 
-![Imagen 6. Creación contenedor con volumen mount ](capturas/Captura6.png)
+![Imagen 6. Creación contenedor con volumen mount ](Capturas/Captura6.png)
 ---
 
 ## Crear tabla
@@ -142,7 +142,7 @@ Para comprobar, seguimos los siguientes pasos:
 3.  Creo un nuevo contenedor usando **el mismo volumen**
 4.  Compruebo que los datos siguen existiendo.
 
-![Imagen 7. Comprobación de datos en volumen ](capturas/Captura7.png)
+![Imagen 7. Comprobación de datos en volumen ](Capturas/Captura7.png)
 
 ---
 
@@ -170,7 +170,7 @@ docker run -d --name laura-nginx -p 8080:80 --mount type=bind,source="$(pwd)"/we
 
 Abro el navegador y podemos observar cómo nginx carga nuestro index.html
 
-![Imagen 8. Comprobación de datos en volumen ](capturas/Captura8.png)
+![Imagen 8. Comprobación de datos en volumen ](Capturas/Captura8.png)
 
 ---
 
@@ -179,8 +179,8 @@ Pregunta:
 ¿Qué ocurre si modificas el archivo `index.html` en tu máquina?
 Al modificar el archivo, nginx automáticamente detecta el cambio realizado tal y como muestran las siguientes imágenes
 
-![Imagen 9. Comprobación de datos en volumen ](capturas/Captura9.png)
-![Imagen 10. Comprobación de datos en volumen ](capturas/Captura10.png)
+![Imagen 9. Comprobación de datos en volumen ](Capturas/Captura9.png)
+![Imagen 10. Comprobación de datos en volumen ](Capturas/Captura10.png)
 
 ---
 
