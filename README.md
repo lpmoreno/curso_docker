@@ -142,7 +142,7 @@ Para comprobar, seguimos los siguientes pasos:
 3.  Creo un nuevo contenedor usando **el mismo volumen**
 4.  Compruebo que los datos siguen existiendo.
 
-![Imagen 7. Comprobación de datos en volumen ](Capturas/Captura7.png)
+![Imagen 7. ](Capturas/Captura7.png)
 
 ---
 
@@ -170,7 +170,7 @@ docker run -d --name laura-nginx -p 8080:80 --mount type=bind,source="$(pwd)"/we
 
 Abro el navegador y podemos observar cómo nginx carga nuestro index.html
 
-![Imagen 8. Comprobación de datos en volumen ](Capturas/Captura8.png)
+![Imagen 8. ](Capturas/Captura8.png)
 
 ---
 
@@ -179,9 +179,80 @@ Pregunta:
 ¿Qué ocurre si modificas el archivo `index.html` en tu máquina?
 Al modificar el archivo, nginx automáticamente detecta el cambio realizado tal y como muestran las siguientes imágenes
 
-![Imagen 9. Comprobación de datos en volumen ](Capturas/Captura9.png)
-![Imagen 10. Comprobación de datos en volumen ](Capturas/Captura10.png)
+![Imagen 9. ](Capturas/Captura9.png)
+![Imagen 10. ](Capturas/Captura10.png)
 
 ---
+
+# 6. Creando redes privadas
+
+Creo una red llamada my-net y consultamos el listado de redes disponibles:
+
+```
+docker network create my-net
+docker network ls
+```
+
+Para inspeccionar la red creada, utilizaremos el comando:
+```
+docker network inspect my-net
+```
+
+![Imagen 11. ](Capturas/Captura11.png)
+
+---
+
+Arranco dos contenedores `ubuntu` en esa red.
+
+```
+docker run -dit --name ubuntu1 --network my-net ubuntu
+docker run -dit --name ubuntu2 --network my-net ubuntu
+
+```
+![Imagen 12. ](Capturas/Captura12.png)
+![Imagen 13. ](Capturas/Captura13.png)
+
+Accedo al contenedor e instalo la herramienta ping.
+
+![Imagen 14.](Capturas/Captura14.png)
+
+Desde ubuntu1 hacemos ping a ubuntu2 y comprobamos que responde:
+
+![Imagen 15.](Capturas/Captura15.png)
+
+---
+
+Pregunta
+
+¿Los contenedores pueden comunicarse entre sí?
+Sí, los contenedores docker pueden comunicarse entre sí con la creación de una red personalizada que contiene un servidor dns integrado que permite la comunicación entre máquinas y el service discovery.
+
+---
+
+# 9. Docker Compose --- Compartiendo volúmenes
+
+Creamos un fichero docker-compose.yml con dos servicios, un writer y un reader.
+
+El writer debe:
+
+- montar un volumen en `/app/logs`
+- escribir un timestamp cada 30 segundos
+
+El reader debe:
+
+
+- montar el volumen en modo solo lectura
+- mostrar el contenido en consola
+
+---
+
+Aquí vemos el contenido del archivo docker-compose.yml:
+
+![Imagen 17.](Capturas/Captura17.png)
+
+Si hacemos docker compose up, podemos ver los contenedores en ejecución:
+
+![Imagen 16.](Capturas/Captura16.png)
+
 
 

@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  writer:
+    image: alpine
+    container_name: writer_service
+    volumes:
+      - shared_logs:/app/logs
+    # Escribe un timestamp cada 30 segundos
+    command: >
+      /bin/sh -c "while true; do 
+      date >> /app/logs/timestamp.log; 
+      echo 'Timestamp escrito...'; 
+      sleep 30; 
+      done"
+
+  reader:
+    image: alpine
+    container_name: reader_service
+    volumes:
+      - shared_logs:/app/logs:ro # Montado en modo solo lectura (ro)
+    # Muestra el contenido del archivo en consola
+    command: >
+      /bin/sh -c "tail -f /app/logs/timestamp.log"
+    depends_on:
+      - writer
+
+volumes:
+  shared_logs:
